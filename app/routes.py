@@ -58,8 +58,8 @@ def login():
 
 @app.route('/logout', methods=['POST'])
 def logout():
-    session['user'] = ''
-    session['pass'] = ''
+    session['user_name'] = ''
+    session['password'] = ''
     return render_template('logged_out.html')
 
 @app.route("/favicon.ico")
@@ -82,7 +82,7 @@ def click_tracker():
 
 @app.route("/edit/<page_name>")
 def edit(page_name):
-    if session['user'] is 'rob' :
+    if session['user_name'] == 'rob' :
         output_page = render_markdown(page_name + '.html')
         return render_template('edit.html', output_page=output_page)
     else:
