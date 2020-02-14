@@ -28,15 +28,12 @@ def all():
     #template/webpage files are located on the server
     path = r'C:\Users\robad\Desktop\School HSU\Spring 2020\CS 232 -Python\flask-blog\app\templates'
     
-    pages=[]
-    #root=root, d=directories, f=files
-    for r, d, f in os.walk(path):
-        for file in f:
-            pages.append(os.path.splitext(file)[0])
-
-
     view_data = {}
-    view_data["pages"] = pages  
+    view_data["pages"] = []
+    #root=root, d=directories, f=files
+    for r,d, f in os.walk(path):
+        for file in f:
+            view_data["pages"].append(os.path.splitext(file)[0])
    
     return render_template("all.html", data = view_data)
 
@@ -80,12 +77,24 @@ def click_tracker():
     return render_template('click_tracker.html', data=view_data)
 
 
-@app.route("/edit/<page_name>")
+@app.route("/edit/<page_name>", methods=["GET", "POST"])
 def edit(page_name):
-    if session['user_name'] == 'rob' :
-        output_page = render_markdown(page_name + '.html')
-        return render_template('edit.html', output_page=output_page)
-    else:
+    if request.method == "GET":
+        if session["user_name"] == "rob" :
+           output_page = render_template(page_name + '.html')
+           return render_template('edit.html', output_page=output_page, page_name = page_name)
+        else:
+           return render_template('index.html')
+    elif request.method == "POST":
+        if session["user_name"] == "rob" :
+           new_file = open('app/templates/' + page_name + '.html', 'w')
+           new_file.write(request.form["content"].strip())
+           new_file.close()
+           output_page = render_template(page_name + '.html')
+           return render_template('edit.html', output_page=output_page, page_name = page_name)
+        else:
+           return render_template('login.html')
+
         return render_template('login.html')
 
 

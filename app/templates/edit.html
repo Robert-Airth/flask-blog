@@ -9,15 +9,12 @@
 
 <body>
     <form method="POST" action="/edit/{{page_name}}">
-        {% if page_name == "" %}
-        <button type="submit">Create</button>
-        {% else %}
-        <button type="submit">Edit</button>
-        {% endif %}
-        <input type="text" value="{{page_name}}" name="page_name" />
-        <textarea name="content" rows="50" cols="100">
+        
+        <textarea id="edit_page" name="content" rows="50" cols="100">
         {{output_page}}
         </textarea>
+        <br/>
+        <input  type="submit" id="save_changes" name="save_changes" value="Save Changes"/>
         
         
     </form>
