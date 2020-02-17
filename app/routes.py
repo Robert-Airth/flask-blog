@@ -53,11 +53,10 @@ def login():
        # session['user_name'] = request.values['user_name']
     return render_template("/login.html")
 
-@app.route('/logout', methods=['POST'])
+@app.route('/logout', methods=['GET'])
 def logout():
-    session['user_name'] = ''
-    session['password'] = ''
-    return render_template('logged_out.html')
+    session["user"] = ""
+    return render_template('logout.html')
 
 @app.route("/favicon.ico")
 def favicon():
@@ -80,22 +79,21 @@ def click_tracker():
 @app.route("/edit/<page_name>", methods=["GET", "POST"])
 def edit(page_name):
     if request.method == "GET":
-        if session["user_name"] == "rob" :
+        if session["user"] == "rob" :
            output_page = render_template(page_name + '.html')
-           return render_template('edit.html', output_page=output_page, page_name = page_name)
+           return render_template('edit.html', output_page=output_page, page_name=page_name)
         else:
-           return render_template('index.html')
+           return render_template('loginredirect.html')
     elif request.method == "POST":
-        if session["user_name"] == "rob" :
+        if session["user"] == "rob" :
            new_file = open('app/templates/' + page_name + '.html', 'w')
-           new_file.write(request.form["content"].strip())
+           new_file.write(request.form["content"].replace('\n',''))
            new_file.close()
            output_page = render_template(page_name + '.html')
            return render_template('edit.html', output_page=output_page, page_name = page_name)
         else:
-           return render_template('login.html')
+           return render_template('loginredirect.html')
 
-        return render_template('login.html')
 
 
 #generic page

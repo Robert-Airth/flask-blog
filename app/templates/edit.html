@@ -1,23 +1,34 @@
 <!doctype html>
 <html lang="en">
-
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
+    <title>Edit - {{page_name}} - Robert Airth</title>
     <title>Robert Airth - Edit {{page_name}}</title>
-    <meta name="description" content="Webpage Edit">
 </head>
-
 <body>
+    <div>
+        <h1>Robert Airth</h1>
+        <p>
+            <img src="https://www.redwoods.edu/Portals/0/EasyDNNNews/4050/600600p18255EDNmainimg-Robert-Airth.jpg" alt="A picture of Robert Airth" width="384" height="279">
+            <br/>
+            <em>Computer Science, Automotive everything, STEM Anything!</em>
+        </p>
+        <a href="/index">Home</a>
+        <a href="/about">About Me</a>
+        <a href="/resume">Resum&eacute;</a>
+        <a href="/contact">Contact</a>
+        <a href="/all">Site Map</a>         
+        <a href="/login">Log In</a>  
+        <a href="/logout">Log Out</a>      
+    </div>
+    <hr/>
     <form method="POST" action="/edit/{{page_name}}">
         
-        <textarea id="edit_page" name="content" rows="50" cols="100">
-        {{output_page}}
-        </textarea>
-        <br/>
+        <textarea id="edit_page" name="content" rows="30" cols="120">{{output_page}}</textarea>
         <input  type="submit" id="save_changes" name="save_changes" value="Save Changes"/>
         
         
     </form>
 </body>
-
 </html>
